@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "./input.jsx";
+import Input from "./Input.jsx";
 
 function AddTask({ onAddTaskSubmit }) {
   const [title, setTitle] = useState("");
