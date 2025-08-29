@@ -1,5 +1,5 @@
 import React from "react";
-import { CheckCheck, CheckIcon, ChevronRight, Trash } from "lucide-react";
+import { CheckIcon, ChevronRight, Trash } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button.jsx";
 
@@ -14,25 +14,40 @@ function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
   }
 
   return (
-    <ul className="space-y-4 p-6 bg-slate-200 rounded-md shadow">
+    <ul className="space-y-4 p-6 bg-blue-50 dark:bg-slate-800 rounded-lg shadow flex flex-col">
       {tasks.map((task) => (
-        <li key={task.id} className="flex gap-2">
+        <li key={task.id} className="flex gap-2 items-center">
           <button
             onClick={() => onTaskClick(task.id)}
-            className={`bg-slate-400 text-left w-full flex items-center gap-2 text-white p-2 rounded-md ${
-              task.isCompleted && "line-through"
-            }`}
+            className={`flex-1 flex items-center gap-2 px-3 py-2 rounded-md transition-colors
+              text-blue-900 dark:text-sky-200
+              bg-slate-200 dark:bg-slate-700
+              hover:bg-blue-100 dark:hover:bg-slate-600
+              focus:outline-none
+              ${task.isCompleted ? "line-through opacity-60" : ""}
+              break-words whitespace-pre-line
+            `}
+            style={{ wordBreak: "break-word" }}
           >
-            {task.isCompleted && <CheckIcon/>}
-            {task.title}
+            {task.isCompleted && (
+              <CheckIcon
+                className="text-blue-600 dark:text-sky-400"
+                size={task.title && task.title.length > 30 ? 60 : 25}
+              />
+            )}
+            <span className="break-words whitespace-pre-line text-white font-semibold">
+              {task.title}
+            </span>
           </button>
           <Button
             onClick={() => onSeeDetailsClick(task)}
+            className="bg-blue-700 dark:bg-sky-500 hover:bg-blue-800 dark:hover:bg-sky-600 text-white rounded-md p-2 transition-colors"
           >
             <ChevronRight />
           </Button>
           <Button
             onClick={() => onDeleteTaskClick(task.id)}
+            className="bg-red-500 hover:bg-red-600 text-white rounded-md p-2 transition-colors"
           >
             <Trash />
           </Button>
